@@ -21,10 +21,10 @@ function extractFoldDataset(foldNum, nFolds, dataset){
         let dir = dataPath + gestures[c];
         let files = fs.readdirSync(dir);
         console.log(dir);
-        for (var i = 0; i < nFolds; i++){
+        for (let i = 0; i < nFolds; i++){
             console.log(dir + "/" + files[i]);
-            var data = fs.readFileSync(dir + "/" + files[i]);
-            var recording = JSON.parse(data);
+            let data = fs.readFileSync(dir + "/" + files[i]);
+            let recording = JSON.parse(data);
             let features = handWaving.extractFeatures(recording["data"], parseInt(c), maxPoints);
             if (i == foldNum)
                 dataset.test = dataset.test.concat(features);
@@ -71,9 +71,9 @@ for(let i = 0; i < nFolds; i++){
   handWaving.trainNet(dataset.train, 100);
   accuracies.push(predict(dataset, confusion));
 }
-var average = accuracies.reduce(function(a,b){return a + b}) / nFolds;
-var diffs = accuracies.map(function(value){return Math.abs(value - average);});
-var std = diffs.reduce(function(a,b){return a + b}) / nFolds;
+let average = accuracies.reduce(function(a,b){return a + b}) / nFolds;
+let diffs = accuracies.map(function(value){return Math.abs(value - average);});
+let std = diffs.reduce(function(a,b){return a + b}) / nFolds;
 
 console.log("-----------------");
 console.log(accuracies);
