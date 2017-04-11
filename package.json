@@ -1,0 +1,16 @@
+{
+  "name": "handwaving",
+  "version": "0.0.1",
+  "description": "Accelerometer gesture recognition for mobile music",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Gerard Roma",
+  "license": "ISC",
+  "devDependencies": {
+    "convnetjs": "^0.3.0",
+    "dsp.js": "corbanbrook/dsp.js",
+    "glob": "^7.1.1"
+  }
+}
