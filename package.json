@@ -9,8 +9,11 @@
   "author": "Gerard Roma",
   "license": "ISC",
   "devDependencies": {
+    "body-parser": "^1.17.1",
     "convnetjs": "^0.3.0",
     "dsp.js": "corbanbrook/dsp.js",
-    "glob": "^7.1.1"
+    "glob": "^7.1.1",
+    "pug": "^2.0.0-beta11",
+    "uuid": "^3.0.1"
   }
 }
