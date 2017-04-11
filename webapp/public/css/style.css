@@ -1,0 +1,17 @@
+body{
+    padding:50px;
+    font-size:14px;
+}
+
+#rec_button{
+    margin-top:50px;
+}
+
+.recording{
+    color:red;
+}
+
+#chart{
+    width:3000px;
+
+}

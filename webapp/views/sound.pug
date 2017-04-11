@@ -1,0 +1,28 @@
+extends ./layout.pug
+block title
+    title= gestureClass + " sound"
+    script(src="/js/flocking-all.min.js")
+    script(src="/js/test_sound.js")
+block content
+    h1= gestureClass + " sound"
+    br
+    form(method='GET' action='/sounds/'+gestureClass)
+      label(for='synth') Synth:
+      p fockingjs synth def in valid json (i.e. use quotation marks for keys)
+      br
+      textarea#synth(rows="10" cols="40" name="synth")=synth
+      br
+      br
+      br
+      label(for='mapping') Mapping:
+      br
+      p lines in the form param=expr separated by semicolon
+      br
+      textarea#mapping(rows="5" cols="40" name="mapping")=mapping
+      br
+      br
+      button.btn.btn-primary(type='button' onclick='play()')  Play
+      button.btn.btn-primary(type='button'  style='margin-left: 10px;' onclick='stop()')  Stop
+      button.btn.btn-primary(type='submit' style='margin-left: 10px;') Save
+      br
+      div(id="display")

@@ -1,0 +1,14 @@
+extends ./layout.pug
+block title
+    title recorded
+block content
+    h1= gestureClass
+    h3="Recordings"
+    ul
+        each val, index in recorded
+            li
+                a(href= "/gestures/"+ gestureClass + "/" + val+"/vis")= val
+                a(href= "/gestures/"+ gestureClass + "/" + val + "/del")   delete
+    a(href= "/gestures/"+ gestureClass + "/new") record new
+    h3="Sound"
+    a(href= "/sounds/"+ gestureClass) edit

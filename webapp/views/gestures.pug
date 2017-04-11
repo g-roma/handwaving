@@ -1,0 +1,12 @@
+extends ./layout.pug
+block title
+    title "Gestures"
+block content
+    h1= "Gestures"
+    a(href="/gestures/new") + Add gesture
+    div(class="container")
+        ul
+            each val, index in gestures
+                li
+                    a(href="/gestures/"+val)= val
+                    a(href= "/gestures/"+ val + "/delete")   (delete)

@@ -1,0 +1,13 @@
+extends ./layout.pug
+block title
+    title "New gesture"
+block content
+    h1= "New gesture"
+
+    form(method='GET' action='/gestures/create')
+      label(for='name') Name:
+      br
+      input(type="text", name="name")
+      br
+      br
+      button.btn.btn-primary(type='submit') Create

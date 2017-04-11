@@ -1,0 +1,11 @@
+extends ./layout.pug
+block title
+    title record gesture
+    script(src="/js/record.js")
+block content
+    h1= "record new example of " + gestureClass
+    input(id="gesture_class",type='hidden', name='gesture_class', value=gestureClass)
+    div(class="centered")
+        button(type="button", id="recbutton", class="btn btn-default btn-lg")
+            span(id="red_dot", class="glyphicon glyphicon-record")= "REC "
+        div(id="display")

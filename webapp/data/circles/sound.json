@@ -1,0 +1,1 @@
+{"synth":"{\r\n        \"id\":\"osc1\",\r\n        \"ugen\": \"flock.ugen.sin\",\r\n        \"freq\": 440\r\n    }\r\n","mapping":"osc1.freq=440 + (x*100)"}

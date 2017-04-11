@@ -1,0 +1,28 @@
+block title
+    link(rel="stylesheet", type="text/css", href="/css/c3.css")
+    title display
+block content
+    div(id="chart")
+    script(src="http://d3js.org/d3.v3.min.js", charset="utf-8")
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js", charset="utf-8")
+    script(src="/js/c3.js")
+
+    script.
+        var jsonURL = window.location.pathname.split("/");
+        jsonURL.pop();
+        console.log(jsonURL.join("/"));
+        $.getJSON(jsonURL.join("/"),
+            function(obj){
+                var x = ['x'];
+                var y = ['y'];
+                var z = ['z'];
+                for(var i=0;i< obj.data.length;i++){
+                    x.push(obj.data[i][0]);
+                    y.push(obj.data[i][1]);
+                    z.push(obj.data[i][2]);
+                }
+                var chart = c3.generate({ data: {columns: [x,y,z]}, size: {width: x.length * 5}});
+            },
+            function(obj){
+                console.log("error")
+        });
