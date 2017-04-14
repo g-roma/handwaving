@@ -81,3 +81,5 @@ console.log("Mean accuracy", average);
 console.log("Standard deviation", std);
 console.log(confusion);
 console.log("-----------------");
+
+fs.writeFile('nnet.json', JSON.stringify(handWaving.net.toJSON()));
