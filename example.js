@@ -86,7 +86,7 @@ function getSound(id, doneFunc){
 
 
 function getNN(){
-    $.getJSON("nnet1.json", function( data ) {
+    $.getJSON("nnet.json", function( data ) {
         net = new convnetjs.Net();
         net.fromJSON(data);
         $("#display").text("Touch screen to start...");
