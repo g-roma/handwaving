@@ -14,7 +14,7 @@ let synth;
 
 
 
-let sounds = ["up_down", "left_right", "tilt"];
+let sounds = ["left_right", "up_down",  "tilt"];
 let synths = new Array(3);
 let mappings = new Array(3);
 
@@ -29,7 +29,23 @@ function argmax(arr){
     }
     return maxIdx;
 }
-function xl2color(val){return parseInt(127*(1+(val/20)))}
+
+var prevX = 0;
+var prevY = 0;
+var prevZ = 0;
+var th = 0.02;
+
+var isStill = function(x,y,z){
+    var result =
+        (Math.abs(x - prevX) < th) &&
+        (Math.abs(y - prevY) < th) &&
+        (Math.abs(z - prevZ) < th)
+    prevX = x; prevY = y; prevZ = z;
+    return result;
+}
+
+
+function xl2color(val){return parseInt(127*(1+(val/20)))};
 
 function getPrediction(data){
     var point = Array();
@@ -70,13 +86,12 @@ function getSound(id, doneFunc){
 
 
 function getNN(){
-    $.getJSON("nnet.json", function( data ) {
+    $.getJSON("nnet1.json", function( data ) {
         net = new convnetjs.Net();
         net.fromJSON(data);
         $("#display").text("Touch screen to start...");
         document.addEventListener('touchstart', function(e) {
             if(playing)return;
-
             environment.start();
             currentPlayer = synths[0];
             currentPlayer.play();
@@ -92,13 +107,35 @@ function isFlat(x,y,z){
 }
 
 
+
+function displayGesture(gesture){
+  switch (gesture){
+    case -1:
+      showColor(0,0,0);$("#display").text("");
+      break;
+    case 0:
+      showColor(256,0,0);$("#display").text("Left/Right ");
+      break;
+    case 1:
+      showColor(0,256,0);$("#display").text("Up/Down");
+      break;
+    case 2:
+      showColor(0,0,256);$("#display").text("Tilt");
+      break;
+    default: break;
+  }
+}
+
+  function showColor(r,g,b){
+      $(".colourme").css("background-color", "rgb(" + r+ "," + g + "," + b + ")");
+  }
+
+
 $(function(){
     //if (!phoneOK()) return;
     var accelWin = [];
     $("#display").text("loading, please wait...");
     getSound(0,()=>{getSound(1,()=>{getSound(2, getNN)})});
-
-    //getNN();
     var k = 0;
     var prevX =0, prevY=0, prevZ=0;
 
@@ -110,19 +147,25 @@ $(function(){
         accelWin.push([x, y, z]);
 
         if(accelWin.length > wSize){
-            accelWin.shift();
-            pred = getPrediction(accelWin);
-                if (pred[1] <0.8) gesture = 0;
-                else gesture = pred[0];
-                if (gesture != currentGesture && pred[1] > 0.5) {
+                accelWin.shift();
+                pred = getPrediction(accelWin);
+                if(isStill(x,y,z) || pred[1] < 0.9) {
+                  currentPlayer.pause();
+                  gesture = currentGesture = -1;
+                }
+                else {
+                  if (pred[0] != currentGesture && pred[0] >=0 && pred[0] <3&&pred[1] > 0.9) {
+                    gesture = pred[0];
                     currentPlayer.pause();
                     currentPlayer = synths[gesture];
                     currentPlayer.play();
                     currentGesture = gesture;
+
+                  }
                 }
-                $("#display").text(currentGesture);
+                displayGesture(parseInt(gesture));
         } else {
-            //$("#display").text(wSize - accelWin.length);
+            $("#display").text(wSize - accelWin.length);
         }
         prevX = x;
         prevY = y;
