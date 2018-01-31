@@ -11,8 +11,15 @@ const gestures = [
   "concave",
   "convex"];
 
-const dataPath = "./dataset/";
-const maxPoints = 800;
+
+//const dataPath = "./datasets/original/";
+//const maxPoints = 800;
+
+// use multi-user dataset
+// TODO: add stratified training code 
+const dataPath = "./datasets/multiuser/";
+const maxPoints = 500;
+
 
 let handWaving = new HandWaving(128, 64, true, gestures.length);
 
