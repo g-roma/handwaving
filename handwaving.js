@@ -70,6 +70,11 @@ class HandWaving{
     this.net.makeLayers(layer_defs);
   }
 
+  loadNet(data){
+    this.net = new convnetjs.Net();
+    this.net.fromJSON(data);
+  }
+
   trainNet(trainingData, nIterations = 100){
       let perm = convnetjs.randperm(trainingData.length);
       let trainer = new convnetjs.SGDTrainer(this.net, {momentum:0.9, learning_rate:0.01, batch_size:50, l2_decay:0.01});
@@ -90,7 +95,6 @@ class HandWaving{
 
   predict(dataPoint){
     let x = new convnetjs.Vol(dataPoint.x);
-    let y = dataPoint.y
     let result = this.net.forward(x, false);
     return this.argmax(result.w);
   }
